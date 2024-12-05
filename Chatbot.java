@@ -49,33 +49,38 @@ public class Chatbot {
         while (true) {
             String orderInput = scanner.nextLine().toLowerCase();
             boolean addedSomething = false;
+            int quantity = 1; 
+    
+            int i = 0;
+            while (i < orderInput.length() && Character.isDigit(orderInput.charAt(i))) {
+                i++;
+            }
+    
+            if (i > 0) {
+                quantity = Integer.parseInt(orderInput.substring(0, i));
+                orderInput = orderInput.substring(i).trim();  
+            }
     
             for (Food item : menu) {
                 if (orderInput.contains(item.name)) {
-                    if (order.hasItem(item.name)) {
-                        System.out.println("You’ve already added " + item.name + " to your order.");
-                    } else {
-                        order.addItem(item.name, item.price);
-                        System.out.println("Added " + item.name + " for $" + item.price);
-                        addedSomething = true;
+                    for (int j = 0; j < quantity; j++) {
+                        if (order.hasItem(item.name)) {
+                            System.out.println("You’ve already added " + item.name + " to your order.");
+                        } else {
+                            order.addItem(item.name, item.price);
+                            System.out.println("Added " + item.name + " for $" + item.price);
+                            addedSomething = true;
+                        }
                     }
+                    break; 
                 }
             }
     
             if (!addedSomething) {
-                boolean isInvalid = true;
-                for (Food item : menu) {
-                    if (orderInput.contains(item.name)) {
-                        isInvalid = false;
-                        break;
-                    }
-                }
-                if (isInvalid) {
-                    System.out.println("Sorry, we don’t have that.");
-                }
+                System.out.println("Sorry, we don’t have that.");
             }
     
-            System.out.println("Your current total is: $" + order.calculateTotal());
+            System.out.println("Your current total is: $" + String.format("%.2f", order.calculateTotal()));
     
             System.out.println("Would you like to add more items? If no, type 'done'.");
             String moreItems = scanner.nextLine().toLowerCase();
@@ -83,16 +88,17 @@ public class Chatbot {
         }
     
         long endTime = System.currentTimeMillis();
-        long secondsDone = (endTime - startTime) / 1000;
+        long elapsedSeconds = (endTime - startTime) / 1000;
     
         double totalCost = order.calculateTotal();
-        if (secondsDone <= 90) {
+        if (elapsedSeconds <= 90) {
             totalCost *= 0.9;
             System.out.println("Congratulations! You completed your order within 90 seconds and earned a 10% discount.");
         }
     
-        System.out.println("Your final total is: $" + totalCost + ". Is there anything else I can help you with?");
+        System.out.println("Your final total is: $" + String.format("%.2f", totalCost) + ". Is there anything else I can help you with?");
     }
+    
 
     void bookCatering() {
         Scanner scanner = new Scanner(System.in);
