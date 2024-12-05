@@ -83,10 +83,10 @@ public class Chatbot {
         }
     
         long endTime = System.currentTimeMillis();
-        long elapsedSeconds = (endTime - startTime) / 1000;
+        long secondsDone = (endTime - startTime) / 1000;
     
         double totalCost = order.calculateTotal();
-        if (elapsedSeconds <= 90) {
+        if (secondsDone <= 90) {
             totalCost *= 0.9;
             System.out.println("Congratulations! You completed your order within 90 seconds and earned a 10% discount.");
         }
@@ -173,7 +173,7 @@ public class Chatbot {
         double totalCost = burgerTotal + sidesTotal;
     
         System.out.println("Okay, your total is $" + totalCost + ".");
-        System.out.println("Is there anything else I can help you with?");
+        System.out.println("Is there anything else I can help you with?(You can: order food/ask about nutrition(calories))");
     }
 
     void provideNutritionInfo() {
