@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class Chatbot {
@@ -20,11 +19,11 @@ public class Chatbot {
         while (true) {
             String input = scanner.nextLine().toLowerCase();
             if (input.contains("order") || input.contains("food") || input.contains("drink")) {
-                System.out.println("What would you like to order?");
+                System.out.println("Sure!");
                 takeOrder();
-            } else if (input.contains("cater")) {
+            } else if (input.contains("cater") || input.contains("catering") || input.contains("book")) {
                 bookCatering();
-            } else if (input.contains("nutrition")) {
+            } else if (input.contains("nutrition") || input.contains("calories")) {
                 provideNutritionInfo();
             } else if (input.contains("no")) {
                 System.out.println("Okay! Have a good day and hope to see you soon.");
@@ -34,6 +33,7 @@ public class Chatbot {
             }
         }        
     }
+
     void takeOrder() {
         Scanner scanner = new Scanner(System.in);
         Order order = new Order(menu);
@@ -93,6 +93,7 @@ public class Chatbot {
     
         System.out.println("Your final total is: $" + totalCost + ". Is there anything else I can help you with?");
     }
+
     void bookCatering() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Okay, in how many days? It has to be less than 14. Answer with a number.");
@@ -197,6 +198,7 @@ public class Chatbot {
             System.out.println("Sorry, I didn’t quite get that. Please choose from the menu.");
         }
     }
+
     String randomMisunderstanding() {
         String[] misunderstandings = {
             "I didn’t quite catch that. Could you please rephrase?",
@@ -205,7 +207,7 @@ public class Chatbot {
             "Sorry, I don't know what that is. Please try again.",
             "I misunderstood you, can you please try again?"
         };
-        return misunderstandings[new Random().nextInt(misunderstandings.length)];
+        int randomIndex = (int) (Math.random() * misunderstandings.length);
+        return misunderstandings[randomIndex];
     }
 }
-
