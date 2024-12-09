@@ -45,9 +45,11 @@ public class Chatbot {
         System.out.println("What would you like to order? (Menu: veggie burger, cheeseburger, small/med/large fries, small/med/large drink)");
     
         long startTime = System.currentTimeMillis();
+
+        String orderInput = scanner.nextLine().toLowerCase();
     
         while (true) {
-            String orderInput = scanner.nextLine().toLowerCase();
+            
             boolean addedSomething = false;
             int quantity = 1; 
     
@@ -82,9 +84,11 @@ public class Chatbot {
     
             System.out.println("Your current total is: $" + String.format("%.2f", order.calculateTotal()));
     
-            System.out.println("Would you like to add more items? If no, type 'done'.");
+            System.out.println("Add more items now or if done, type 'done'.");
             String moreItems = scanner.nextLine().toLowerCase();
             if (moreItems.equals("done")) break;
+
+            orderInput = moreItems;
         }
     
         long endTime = System.currentTimeMillis();
